@@ -1,4 +1,4 @@
-# goal
+# Goal
 ## Clone project
 ### cd backend 
 ### cp .env.example .env
@@ -6,6 +6,10 @@
 ### php artisan key:generate
 ### npm install
 
-# factory
+# Factory
 ### php artisan tinker
 ### factory(App\User::class)->create(); /email: thuong@gmail.com/password: password
+
+# Docker
+### docker-compose up
+### docker exec -it container_id(backend) bash:/ chown -R www-data:www-data *
