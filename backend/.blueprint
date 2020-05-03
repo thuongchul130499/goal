@@ -1,0 +1,16 @@
+created:
+    - database/migrations/2020_05_01_152334_create_jobs_table.php
+    - database/migrations/2020_05_01_152335_create_tasks_table.php
+    - app/Job.php
+    - app/Task.php
+    - database/factories/JobFactory.php
+    - database/factories/TaskFactory.php
+    - app/Http/Controllers/JobController.php
+    - tests/Feature/Http/Controllers/JobControllerTest.php
+updated:
+    - routes/web.php
+models:
+    Post: { title: 'string:400', content: longtext, author_id: 'id:user', published_at: 'nullable timestamp' }
+    Comment: { content: longtext, user_id: 'id:user' }
+    Job: { title: 'string:255', image: 'string:255 nullable', description: longtext, progress: 'integer default:0', user_id: 'id:user', due_to: date, started_at: 'nullable timestamp' }
+    Task: { title: 'string:255', note: text, progress: 'integer default:0', status: 'integer default:0' }

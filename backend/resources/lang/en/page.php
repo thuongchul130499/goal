@@ -1,0 +1,31 @@
+<?php
+
+return [
+    'login' => 'Login',
+    'email' => 'Email adress',
+    'password' => 'Password',
+    'loginGG' => 'Signin with Google',
+    'loginFB' => 'Signin with Facebook',
+    'update' => 'Update',
+    'create' => 'Create',
+    'Save' => 'Save',
+    'profile' => 'Profile',
+    'viewAll' => 'View all',
+    'logout' => 'Logout',
+    'user' => [
+        'first' => 'First name',
+        'last' => 'Last name',
+        'full' => 'Fullname',
+        'email' => 'Email address',
+        'password' => 'Password',
+        'phone' => 'Phone number',
+        'gender' => 'Gender',
+        'notification_ref' => 'Receive notification throw:',
+        'std' => 'Standard',
+        'emailS' => 'Email',
+        'bio' => 'Introduction',
+        'male' => 'Male',
+        'female' => 'Female',
+        'other' => 'Other',
+    ],
+];

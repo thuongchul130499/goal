@@ -1,0 +1,31 @@
+<?php
+
+return [
+    'login' => 'Đăng nhập',
+    'email' => 'Địa chỉ email',
+    'password' => 'Mật khẩu',
+    'loginGG' => 'Đăng nhập bằng Google',
+    'loginFB' => 'Đăng nhập bằng Facebook',
+    'update' => 'Cập nhật',
+    'create' => 'Tạo mới',
+    'Save' => 'Lưu',
+    'profile' => 'Hồ sơ',
+    'viewAll' => 'Xem tất cả',
+    'logout' => 'Đăng xuất',
+    'user' => [
+        'first' => 'Họ',
+        'last' => 'Tên',
+        'full' => 'Họ và tên',
+        'email' => 'Địa chỉ email',
+        'password' => 'Mật khẩu',
+        'phone' => 'Số điện thoại',
+        'gender' => 'Giới tính',
+        'notification_ref' => 'Nhận thông báo qua:',
+        'std' => 'Tiêu chuẩn',
+        'emailS' => 'Email',
+        'bio' => 'Giới thiệu',
+        'male' => 'Nam',
+        'female' => 'Nữ',
+        'other' => 'Khác',
+    ],
+];
