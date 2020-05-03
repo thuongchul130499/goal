@@ -51,13 +51,13 @@ class User extends Authenticatable
         return "{$this->first_name} {$this->last_name}";
     }
 
-    public function getAvatarAttribute()
+    public function getAvaAttribute()
     {
         if ($this->avatar_original) {
             return $this->avatar_original;
         }
 
-        return \Storage::url(Auth::user()->avatar);
+        return \Storage::url($this->avatar);
     }
 
     public function jobs(){

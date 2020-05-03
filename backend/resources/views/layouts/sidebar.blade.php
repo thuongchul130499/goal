@@ -4,7 +4,7 @@
     <div class="display-avatar animated-avatar">
       <img 
         class="profile-img img-lg rounded-circle cursor"
-        src="{{ Auth::user()->avatar }}"
+        src="{{ Auth::user()->ava }}"
         alt="profile image" id="image-ava">
       <form action="" id="form-upload">
         <input type="file" name="avatar" id="avatar" class="hide" accept="image/*">

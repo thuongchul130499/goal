@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->text('bio')->nullable();
             $table->string('ip_address')->nullable();
-            $table->string('google_id');
+            $table->string('google_id')->nullable();
             $table->string('avatar_original')->nullable();
             $table->string('notification_preference')->default('database');
             $table->rememberToken();
