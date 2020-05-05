@@ -15,7 +15,7 @@ use JMac\Testing\Traits\AdditionalAssertions;
 use Tests\TestCase;
 
 /**
- * @see \App\Http\Controllers\JobController
+ * @see \App\Http\Controllers\GoalController
  */
 class JobControllerTest extends TestCase
 {
@@ -38,7 +38,7 @@ class JobControllerTest extends TestCase
     public function store_uses_form_request_validation()
     {
         $this->assertActionUsesFormRequest(
-            \App\Http\Controllers\JobController::class,
+            \App\Http\Controllers\GoalController::class,
             'store',
             \App\Http\Requests\JobStoreRequest::class
         );

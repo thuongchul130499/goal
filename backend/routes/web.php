@@ -32,4 +32,6 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/notifications', 'NotificationController@index')->name('notifications');
     Route::get('/profile', 'UserController@profile')->name('profile');
     Route::post('/profile', 'UserController@updateProfile')->name('update-profile');
+
+    Route::resource('goals', 'GoalController');
 });

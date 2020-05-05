@@ -99,6 +99,7 @@ class UserController extends Controller
         $data['notification_preference'] = implode(',', $data['notification_preference']);
         $data['password'] = Hash::make($data['password']);
         if (Auth::user()->update($data)) {
+            toastr()->success('Data has been saved successfully!');
             return redirect()->route('profile');
         };
 
@@ -121,7 +122,7 @@ class UserController extends Controller
                 'msg' => 'Cập nhật ảnh bìa thành công',
                 'path' => Storage::url($currentImg),
             ]);
-            
+
         } catch (\Exception $e) {
             return $this->jsonError(500, $e->getMessage());
         }

@@ -60,7 +60,7 @@ class User extends Authenticatable
         return \Storage::url($this->avatar);
     }
 
-    public function jobs(){
-        return $this->hasMany(Post::class);
+    public function goals(){
+        return $this->hasMany(Goal::class);
     }
 }

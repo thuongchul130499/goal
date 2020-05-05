@@ -5,4 +5,5 @@
 <script src="{{ asset('template/js/main.js') }}"></script>
 <script src="{{ asset('template/js/dashboard.js') }}"></script>
 <script src="{{ asset('js/main.js') }}"></script>
+<script src="//cdn.jsdelivr.net/npm/datetimepicker@latest/dist/DateTimePicker.min.js"></script>
 @yield('script')

@@ -1,9 +1,9 @@
 models:
-  Job:
+  Goal:
     title: string:255
     image: string:255 nullable
     description: longtext
-    progress: integer default:0 
+    progress: integer default:0
     user_id: id:user
     due_to: date
     started_at: nullable timestamp
@@ -14,8 +14,8 @@ models:
     status: integer default:0
 
 controllers:
-  Job:
-    index: 
+  Goal:
+    index:
       query: all
     store:
       validate: title, description

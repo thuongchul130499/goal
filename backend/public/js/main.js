@@ -138,7 +138,7 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/thuongnguyen/Desktop/goal/backend/resources/js/main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! /home/thuongnguyen/Desktop/goal1/backend/resources/js/main.js */"./resources/js/main.js");
 
 
 /***/ })

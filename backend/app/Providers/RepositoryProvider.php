@@ -6,12 +6,16 @@ use Illuminate\Support\ServiceProvider;
 
 class RepositoryProvider extends ServiceProvider
 {
-   
+
     protected static $repositories = [
         [
             'App\Repositories\Contracts\UserRepository',
             'App\Repositories\Eloquents\UserEloquentRepository',
         ],
+        [
+        'App\Repositories\Contracts\GoalRepository',
+        'App\Repositories\Eloquents\GoalEloquentRepository',
+    ],
     ];
     /**
      * Register services.
