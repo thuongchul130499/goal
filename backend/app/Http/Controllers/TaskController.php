@@ -76,10 +76,13 @@ class TaskController extends Controller
     public function update(Request $request, $id)
     {
         try{
-            $task = Task::where([
-                ['goal_id', '=', $request->input('goal_id')],
-                ['id', '=', $id]
-            ])->first();
+            $task = \Auth::user()->goals()
+                ->where('id', $request->input('goal_id'))->first()
+                ->tasks()->where('id', $id)->first();
+//            $task = Task::where([
+//                ['goal_id', '=', $request->input('goal_id')],
+//                ['id', '=', $id]
+//            ])->first();
 
             $currentPgs = $task->progress;
 
@@ -115,7 +118,7 @@ class TaskController extends Controller
             return $this->jsonError(500, $e->getMessage());
         }
 
-        
+
         return $this->jsonSuccess([
             'message' => 'Xóa thành công',
             'goal' => $goal,

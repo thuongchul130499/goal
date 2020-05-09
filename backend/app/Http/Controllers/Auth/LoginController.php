@@ -60,7 +60,6 @@ class LoginController extends Controller
             if(!empty($user->ip_address) && $user->ip_address != $request->ip()) {
                 $user->notify(new LoginNotification());
             }
-
             $user->update(['ip_address' => request()->ip()]);
             return $this->sendLoginResponse($request);
         }

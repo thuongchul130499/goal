@@ -1,12 +1,16 @@
-FROM php:7.3-apache
-LABEL maintainer="Alefe Souza <contact@alefesouza.com>"
+FROM php:7.2-apache-stretch
 
-RUN a2enmod rewrite
+COPY . /var/www/html
+COPY docker/start.sh /usr/local/bin/start
+
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod u+x /usr/local/bin/start \
+    && a2enmod rewrite
 
 RUN apt-get update \
   && apt-get install -y zlib1g-dev libzip-dev libicu-dev wget gnupg g++ git openssh-client libpng-dev iproute2 \
   && docker-php-ext-configure intl \
-  && docker-php-ext-install intl pdo_mysql zip gd
+  && docker-php-ext-install intl pdo_mysql zip gd pcntl ext-pcntl
 
 RUN pecl install -f xdebug && docker-php-ext-enable xdebug;
 
@@ -19,3 +23,5 @@ RUN apt-get update \
   && apt-get install -y yarn
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+CMD ["/usr/local/bin/start"]

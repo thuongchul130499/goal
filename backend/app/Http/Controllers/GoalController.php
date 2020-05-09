@@ -23,7 +23,7 @@ class GoalController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -42,7 +42,7 @@ class GoalController extends Controller
 
     public function show($id)
     {
-        $goal = $this->goal->show($id);
+        $goal = Auth::user()->goals()->where('id', $id)->firstOrFail();
 
         return view('goal.show', compact('goal'));
     }

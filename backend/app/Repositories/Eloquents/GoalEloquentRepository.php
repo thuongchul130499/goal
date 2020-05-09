@@ -5,7 +5,7 @@ namespace App\Repositories\Eloquents;
 use App\Repositories\Contracts\GoalRepository;
 use App\Goal;
 use Carbon\Carbon;
-use Exception;
+use Exception, Auth;
 
 class GoalEloquentRepository extends AbstractEloquentRepository implements GoalRepository
 {
@@ -16,10 +16,11 @@ class GoalEloquentRepository extends AbstractEloquentRepository implements GoalR
 
     public function getData($with = [], $data = [], $dataSelect = ['*'])
     {
-        return $this->model()
-                     ->with($with)
-                     ->select($dataSelect)
-                     ->paginate(5);
+        return Auth::user()
+            ->goals()
+            ->with($with)
+            ->select($dataSelect)
+            ->paginate(5);
     }
 
     public function show($id, $with =[] )

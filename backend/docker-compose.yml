@@ -1,41 +1,84 @@
-version: '3'
-
+version: "3"
 services:
-  php:
-    build: .
-    container_name: laravel-vue-boilerplate
+  app:
+    image: laravel-www
+    container_name: laravel-www
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    depends_on:
+      - redis
+      - mysql
     ports:
       - 8000:80
-    entrypoint: bash -c "echo -e \"`/sbin/ip route|awk '/default/ { print $$3 }'`\thost.docker.internal\" | tee -a /etc/hosts > /dev/null && /usr/local/bin/docker-php-entrypoint -k start"
     volumes:
       - ./docker/php/php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./docker/apache2/httpd-vhosts.conf:/etc/apache2/sites-enabled/000-default.conf
-      - ./:/var/www/html
-    depends_on:
-      - mysqldb
-  myadmin:
-    image: phpmyadmin/phpmyadmin:4.9
-    container_name: lvb-phpmyadmin
-    ports:
-      - 8081:80
+      - .:/var/www/html
     environment:
-      - PMA_ARBITRARY=1
-      - PMA_HOST=${DB_CONNECTION}
-    restart: always
+      APP_ENV: local
+      CONTAINER_ROLE: app
+      CACHE_DRIVER: redis
+      SESSION_DRIVER: redis
+      QUEUE_DRIVER: redis
+      REDIS_HOST: redis
+
+  scheduler:
+    image: laravel-www
+    container_name: laravel-scheduler
     depends_on:
-      - mysqldb
-  mysqldb:
+      - app
+    volumes:
+      - .:/var/www/html
+    environment:
+      APP_ENV: local
+      CONTAINER_ROLE: scheduler
+      CACHE_DRIVER: redis
+      SESSION_DRIVER: redis
+      QUEUE_DRIVER: redis
+      REDIS_HOST: redis
+
+  queue:
+    image: laravel-www
+    container_name: laravel-queue
+    depends_on:
+      - app
+    volumes:
+      - .:/var/www/html
+    environment:
+      APP_ENV: local
+      CONTAINER_ROLE: queue
+      CACHE_DRIVER: redis
+      SESSION_DRIVER: redis
+      QUEUE_DRIVER: redis
+      REDIS_HOST: redis
+
+  redis:
+    container_name: laravel-redis
+    image: redis:4-alpine
+    ports:
+      - 16379:6379
+    volumes:
+      - redis:/data
+
+  mysql:
+    container_name: laravel-mysql
     image: mysql:5.7
-    container_name: lvb-mysql
     restart: always
     env_file:
       - .env
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=${DB_DATABASE}
       - MYSQL_USER=${DB_USERNAME}
       - MYSQL_PASSWORD=${DB_PASSWORD}
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
-    ports:
-      - 3306:3306
-    volumes:
-      - /var/lib/mysql
+
+volumes:
+  redis:
+    driver: "local"
+  mysql:
+    driver: "local"
