@@ -61,14 +61,14 @@
                                                     <input 
                                                         type="date"
                                                         class="form-control"
-                                                        name="due_to"
-                                                        v-model="due_to"
+                                                        name="started_at"
+                                                        v-model="started_at"
                                                         :class="{
-                                                            'is-invalid':errors.due_to,
+                                                            'is-invalid':errors.started_at,
                                                         }"
                                                     >
                                                     <div class="invalid-feedback">
-                                                        <span v-if="errors.due_to">{{ errors.due_to[0] }}</span>
+                                                        <span v-if="errors.started_at">{{ errors.started_at[0] }}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -78,14 +78,14 @@
                                                     <input 
                                                         type="date" 
                                                         class="form-control" 
-                                                        name="started_at"
-                                                        v-model="started_at"
+                                                        name="due_to"
+                                                        v-model="due_to"
                                                         :class="{
-                                                            'is-invalid':errors.started_at
+                                                            'is-invalid':errors.due_to
                                                         }"
                                                     >
                                                     <div class="invalid-feedback">
-                                                        <span v-if="errors.started_at">{{ errors.started_at[0] }}</span>
+                                                        <span v-if="errors.due_to">{{ errors.due_to[0] }}</span>
                                                     </div>
                                                 </div>
                                             </div>

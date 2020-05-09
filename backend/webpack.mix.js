@@ -13,7 +13,11 @@ const mix = require('laravel-mix');
 
 mix.scripts([
     'node_modules/sweetalert/dist/sweetalert.min.js',
+    'node_modules/nouislider/distribute/nouislider.min.js',
     ], 'public/js/plugin.js')
+    .styles([
+        'node_modules/nouislider/distribute/nouislider.min.css',
+    ], 'public/css/public.css')
     .js('resources/js/app.js', 'public/js')
     .js('resources/js/main.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')

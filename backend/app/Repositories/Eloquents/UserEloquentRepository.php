@@ -25,9 +25,7 @@ class UserEloquentRepository extends AbstractEloquentRepository implements UserR
 
     public function getNotifications($uid, $page = 1)
     {
-        $notifications = $this->show($uid)
-                        ->unreadNotifications()
-                        ->paginate(5);
+        $notifications = $this->show($uid)->notifications;
 
         $notis = [];
 
@@ -43,6 +41,31 @@ class UserEloquentRepository extends AbstractEloquentRepository implements UserR
                         'title' => 'Cảnh báo đăng nhập',
                         'content' => 'Tài khoản của bạn được đăng nhập tại một máy tính khác, có phải là bạn ?',
                         'time' => Carbon::createFromTimeStamp(strtotime($notification->created_at))->diffForHumans(),
+                        'read' => empty($notification->read_at) ? false : true
+                    ];
+                    break;
+                case 'new-goal':
+                    $notis[] = [
+                        'id' => $notification->id,
+                        'slug' => $notification->data['slug'],
+                        'type' => $notification->data['content'],
+                        'image' => 'adjust',
+                        'title' => $notification->data['title'],
+                        'content' => $notification->data['content'],
+                        'time' => Carbon::createFromTimeStamp(strtotime($notification->created_at))->diffForHumans(),
+                        'read' => empty($notification->read_at) ? false : true
+                    ];
+                    break;
+                case 'change-progress':
+                    $notis[] = [
+                        'id' => $notification->id,
+                        'slug' => $notification->data['slug'],
+                        'type' => $notification->data['content'],
+                        'image' => 'checkbox-multiple-marked-circle-outline',
+                        'title' => $notification->data['title'],
+                        'content' => $notification->data['content'],
+                        'time' => Carbon::createFromTimeStamp(strtotime($notification->created_at))->diffForHumans(),
+                        'read' => empty($notification->read_at) ? false : true
                     ];
                     break;
             }

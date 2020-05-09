@@ -1,13 +1,13 @@
 <template>
-    <a :href="`/notification/${unread.slug + '?id=' +unread.id}`" @click.prevent="openNoti" ref="link">
-        <div class="dropdown-list">
+    <a :href="`/notification/${noti.slug + '?id=' +noti.id}`" @click.prevent="openNoti" ref="link">
+        <div class="dropdown-list" :class="{ unread: !noti.read }">
             <div class="icon-wrapper rounded-circle bg-inverse-warning text-warning">
-                <i class="mdi" :class="`mdi-${unread.image}`"></i>
+                <i class="mdi" :class="`mdi-${noti.image}`"></i>
             </div>
             <div class="content-wrapper">
-                <small class="name">{{ unread.title }}</small>
-                <small class="content-text">{{ unread.content }}</small>
-                <small class="name float-right"><b>{{ unread.time }}</b></small>
+                <small class="name">{{ noti.title }}</small>
+                <small class="content-text">{{ noti.content }}</small>
+                <small class="name float-right"><b>{{ noti.time }}</b></small>
             </div>
         </div>
     </a>
@@ -15,7 +15,7 @@
 <script>
     import swal from '../../../node_modules/sweetalert';
     export default {
-        props:['unread'],
+        props:['noti'],
         data(){
             return {
                 threadUrl:""
@@ -26,10 +26,10 @@
         },
         methods: {
             openNoti(e){
-                if (this.unread.type === 'logined') {
+                if (this.noti.type === 'logined') {
                     swal({
-                        title: this.unread.title,
-                        text: this.unread.content,
+                        title: this.noti.title,
+                        text: this.noti.content,
                         icon: 'warning',
                         button: {
                             text: 'Đổi mật khẩu',
@@ -47,3 +47,8 @@
         }
     }
 </script>
+<style>
+    .unread{ 
+        background: #e9ebef;
+    }
+</style>

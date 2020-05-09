@@ -17,6 +17,7 @@ return [
     'task' => 'Task',
     'image' => 'Image',
     'close' => 'Close',
+    'action' => 'Action',
     'goal' => [
         'create' => 'Create new goal',
         'list' => 'List goals',
@@ -25,7 +26,8 @@ return [
         'progress' => 'Progress',
         'due_to' => 'Due to',
         'started_at' => 'Start date',
-        'title' => 'Object'
+        'title' => 'Object',
+        'newTask' => 'Add task for object',
     ],
     'user' => [
         'first' => 'First name',

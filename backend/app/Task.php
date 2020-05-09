@@ -16,6 +16,7 @@ class Task extends Model
         'note',
         'progress',
         'status',
+        'goal_id',
     ];
 
     /**
@@ -27,8 +28,8 @@ class Task extends Model
         'id' => 'integer',
     ];
 
-    public function job()
+    public function goal()
     {
-        return $this->belongsTo(Job::class);
+        return $this->belongsTo(Goal::class);
     }
 }

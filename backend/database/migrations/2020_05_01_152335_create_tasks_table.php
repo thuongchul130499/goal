@@ -17,8 +17,9 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->string('title', 255);
             $table->text('note');
-            $table->integer('progress')->default();
-            $table->integer('status')->default();
+            $table->float('progress')->default(0);
+            $table->integer('status')->default(0);
+            $table->unsignedBigInteger('goal_id');
             $table->timestamps();
         });
     }

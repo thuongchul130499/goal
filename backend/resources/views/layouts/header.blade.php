@@ -19,13 +19,23 @@
       </form>
       <ul class="nav ml-auto">
         <li class="nav-item dropdown">
-          <a class="nav-link" href="#" id="notificationDropdown" data-toggle="dropdown" aria-expanded="false">
+            <a 
+                class="nav-link"
+                href="#"
+                id="notificationDropdown"
+                data-toggle="dropdown"
+                aria-expanded="false"
+            >
             <i class="mdi mdi-bell-outline mdi-1x"></i>
             @if(auth()->user()->unreadNotifications->count() > 0)
-                <span class="notification-indicator notification-indicator-primary notification-indicator-ripple"></span>
+                <span class="notification-indicator notification-indicator-primary notification-indicator-ripple" id="notification-read"></span>
             @endif
           </a>
-          <notification :unreads="{{ getNotifications() }}" :userid="{{ auth()->id() }}" :count="{{ auth()->user()->unreadNotifications->count() }}"></notification>
+            <notification
+                :notis="{{ getNotifications() }}"
+                :userid="{{ auth()->id() }}" 
+                :count="{{ auth()->user()->unreadNotifications->count() }}"
+            ></notification>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link" href="#" id="messageDropdown" data-toggle="dropdown" aria-expanded="false">

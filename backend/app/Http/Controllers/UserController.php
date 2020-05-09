@@ -127,4 +127,17 @@ class UserController extends Controller
             return $this->jsonError(500, $e->getMessage());
         }
     }
+
+    public function markAsRead(Request $request)
+    {
+        try {
+            Auth::user()->unreadNotifications()->update(['read_at' => now()]);
+
+            return $this->jsonSuccess([
+                'msg' => 'success',
+            ]); 
+        } catch (\Exception $e) {
+            return $this->jsonError(500, $e->getMessage());
+        }
+    }
 }

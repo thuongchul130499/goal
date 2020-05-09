@@ -17,6 +17,7 @@ return [
     'task' => 'Công việc',
     'page' => 'Ảnh',
     'close' => 'Đóng',
+    'action' => 'Hành động',
     'goal' => [
         'create' => 'Tạo mục tiêu mới',
         'list' => 'Danh sách mục tiêu',
@@ -26,6 +27,7 @@ return [
         'due_to' => 'Ngày kết thúc',
         'started_at' => 'Ngày bắt đầu',
         'title' => 'Mục tiêu',
+        'newTask'=> 'Thêm điểm then chốt cho mục tiêu',
     ],
     'user' => [
         'first' => 'Họ',

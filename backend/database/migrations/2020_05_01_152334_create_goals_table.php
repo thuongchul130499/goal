@@ -18,7 +18,7 @@ class CreateGoalsTable extends Migration
             $table->string('title', 255);
             $table->string('image', 255)->nullable();
             $table->longText('description');
-            $table->integer('progress')->default(0);
+            $table->float('progress')->default(0);
             $table->unsignedBigInteger('user_id');
             $table->date('due_to');
             $table->date('started_at')->nullable();

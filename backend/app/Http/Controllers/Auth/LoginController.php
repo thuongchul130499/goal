@@ -57,7 +57,7 @@ class LoginController extends Controller
 
         if ($this->attemptLogin($request)) {
             $user = Auth::user();
-            if(!is_null($user->ip_address)) {
+            if(!empty($user->ip_address) && $user->ip_address != $request->ip()) {
                 $user->notify(new LoginNotification());
             }
 

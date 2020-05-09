@@ -26,8 +26,8 @@ class GoalRequest extends FormRequest
         return [
             'title' => 'required|max:255',
             'description' => 'required|max:2000|min:50',
-            'due_to' => 'required|date|after:tomorrow',
-            'started_at' => 'required|date|after:due_to',
+            'started_at' => 'required|date|after:today',
+            'due_to' => 'required|date|after:started_at',
             'image' => 'image|max:2000'
         ];
     }

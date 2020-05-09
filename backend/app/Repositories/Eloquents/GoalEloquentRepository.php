@@ -5,6 +5,8 @@ namespace App\Repositories\Eloquents;
 use App\Repositories\Contracts\GoalRepository;
 use App\Goal;
 use Carbon\Carbon;
+use Exception;
+
 class GoalEloquentRepository extends AbstractEloquentRepository implements GoalRepository
 {
     public function model()
@@ -17,6 +19,23 @@ class GoalEloquentRepository extends AbstractEloquentRepository implements GoalR
         return $this->model()
                      ->with($with)
                      ->select($dataSelect)
-                     ->paginate(10);
+                     ->paginate(5);
+    }
+
+    public function show($id, $with =[] )
+    {
+        return $this->model()->with($with)->findOrFail($id);
+    }
+
+    public function calProgress($id)
+    {
+        try{
+            $goal = $this->show($id, ['tasks']);
+            $total = $goal->tasks->sum('progress');
+            $goal->update(['progress' => $total / $goal->tasks->count()]);
+            return $goal->refresh();
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage());
+        }
     }
 }

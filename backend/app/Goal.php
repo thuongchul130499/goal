@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Goal extends Model
 {
@@ -37,7 +38,7 @@ class Goal extends Model
      * @var array
      */
     protected $dates = [
-        'started_at',
+        'started_at', 'due_to'
     ];
 
 
@@ -49,5 +50,41 @@ class Goal extends Model
     public function tasks()
     {
         return $this->hasMany(Task::class);
+    }
+
+    public function getDayLeftAttribute()
+    {
+
+        if ($this->due_to) {
+            $remaining_days = Carbon::now()->diffInDays(Carbon::parse($this->due_to));
+        } else {
+            $remaining_days = 0;
+        }
+        return $remaining_days . ' more days left!';
+    }
+
+    public function pgrStatus()
+    {
+        $progress = $this->progress;
+        if ($progress <= 25) {
+            $status = 'danger';
+            $text = 'At Risk';
+        } else if($progress > 25 && $progress <= 50){
+            $status = 'warning';
+            $text = 'Behind';
+        } else if($progress > 50 && $progress <= 75){
+            $status = 'success';
+            $text = 'On Track';
+        } else{
+            $status = 'info';
+            $text = 'Excellent';
+        }
+
+        return self::getTask($status, $text);
+    }
+
+    static public function getTask($status, $text)
+    {
+        return '<span id="mainStatus" class="badge rounded-pill mt-auto badge-' . $status .'">'. $text .'</span>';
     }
 }
