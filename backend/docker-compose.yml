@@ -49,7 +49,7 @@ services:
       APP_ENV: local
       CONTAINER_ROLE: queue
       CACHE_DRIVER: redis
-      SESSION_DRIVER: redis
+      SESSION_DRIVER: database
       QUEUE_DRIVER: redis
       REDIS_HOST: redis
 

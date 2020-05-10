@@ -18,12 +18,25 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(User::class, function (Faker $faker) {
-    return [ 
-        'first_name' => 'Nguyễn',
-        'last_name' => 'Thương',
+    return [
+        'first_name' => $faker->firstNameMale,
+        'last_name' =>  $faker->name,
         'email' => 'thuong@gmail.com',
         'email_verified_at' => now(),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
         'remember_token' => Str::random(10),
     ];
 });
+
+
+// $factory->define(User::class, function (Faker $faker) {
+//     return [
+//         'first_name' => $faker->firstNameMale,
+//         'last_name' =>  $faker->name,
+//         'email' => $faker->email,
+//         'email_verified_at' => now(),
+//         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+//         'remember_token' => Str::random(10),
+//         // 'avatar' => $faker->image('public/storage/avatars',640,480, null, false),
+//     ];
+// });

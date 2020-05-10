@@ -40,3 +40,7 @@ function existRef($user, $typ) {
     $arr = explode(',', $user->notification_preference);
     return in_array($typ, $arr);
 }
+
+function isFollowing($user, $following_ids) {
+    return in_array($user->id, $following_ids);
+}

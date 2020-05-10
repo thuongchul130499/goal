@@ -179,80 +179,26 @@
           <div class="col-md-8 equel-grid">
             <div class="grid">
               <div class="grid-body py-3">
-                <p class="card-title ml-n1">Order History</p>
+                <p class="card-title ml-n1">Danh sách người dùng</p>
               </div>
               <div class="table-responsive">
                 <table class="table table-hover table-sm">
-                  <thead>
-                    <tr class="solid-header">
-                      <th colspan="2" class="pl-4">Customer</th>
-                      <th>Order No</th>
-                      <th>Purchased On</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="pr-0 pl-4">
-                        <img class="profile-img img-sm" src="{{ asset('template/images/profile/male/image_4.png') }}" alt="profile image">
-                      </td>
-                      <td class="pl-md-0">
-                        <small class="text-black font-weight-medium d-block">Barbara Curtis</small>
-                        <span class="text-gray">
-                          <span class="status-indicator rounded-indicator small bg-primary"></span>Account Deactivated </span>
-                      </td>
-                      <td>
-                        <small>8523537435</small>
-                      </td>
-                      <td> Just Now </td>
-                    </tr>
-                    <tr>
-                      <td class="pr-0 pl-4">
-                        <img class="profile-img img-sm" src="{{ asset('template/images/profile/male/image_3.png') }}" alt="profile image">
-                      </td>
-                      <td class="pl-md-0">
-                        <small class="text-black font-weight-medium d-block">Charlie Hawkins</small>
-                        <span class="text-gray">
-                          <span class="status-indicator rounded-indicator small bg-success"></span>Email Verified </span>
-                      </td>
-                      <td>
-                        <small>9537537436</small>
-                      </td>
-                      <td> Mar 04, 2018 11:37am </td>
-                    </tr>
-                    <tr>
-                      <td class="pr-0 pl-4">
-                        <img class="profile-img img-sm" src="{{ asset('template/images/profile/female/image_2.png') }}" alt="profile image">
-                      </td>
-                      <td class="pl-md-0">
-                        <small class="text-black font-weight-medium d-block">Nina Bates</small>
-                        <span class="text-gray">
-                          <span class="status-indicator rounded-indicator small bg-warning"></span>Payment On Hold </span>
-                      </td>
-                      <td>
-                        <small>7533567437</small>
-                      </td>
-                      <td> Mar 13, 2018 9:41am </td>
-                    </tr>
-                    <tr>
-                      <td class="pr-0 pl-4">
-                        <img class="profile-img img-sm" src="{{ asset('template/images/profile/male/image_10.png') }}" alt="profile image">
-                      </td>
-                      <td class="pl-md-0">
-                        <small class="text-black font-weight-medium d-block">Hester Richards</small>
-                        <span class="text-gray">
-                          <span class="status-indicator rounded-indicator small bg-success"></span>Email Verified </span>
-                      </td>
-                      <td>
-                        <small>5673467743</small>
-                      </td>
-                      <td> Feb 21, 2018 8:34am </td>
-                    </tr>
-                  </tbody>
+                    <div class="loader user-table hide"></div>
+                    <thead>
+                        <tr class="solid-header">
+                        <th colspan="2" class="pl-4">Họ tên</th>
+                        <th>Người theo dõi</th>
+                        <th>Đang theo dõi</th>
+                      </tr>
+                    </thead>
+                    <tbody id="user-table">
+                        @include('user._user')
+                    </tbody>
                 </table>
               </div>
-              <a class="border-top px-3 py-2 d-block text-gray" href="#">
-                <small class="font-weight-medium"><i class="mdi mdi-chevron-down mr-2"></i>View All Order History</small>
-              </a>
+                <div class="border-top px-3 py-2 d-block text-gray" id="user-pagination">
+                    {{ $users->withPath('users')->appends(['pos' => 'user-table'])->links() }}
+                </div>
             </div>
           </div>
           <div class="col-md-4 equel-grid">
@@ -279,13 +225,14 @@
                     </div>
                     <div class="activity-log">
                       <p class="log-name">Ronald Edwards</p>
-                      <div class="log-details">Report has been updated <div class="grouped-images mt-2">
-                          <img class="img-sm" src="{{ asset('template/images/profile/male/image_4.png') }}" alt="Profile Image" data-toggle="tooltip" title="Gerald Pierce">
-                          <img class="img-sm" src="{{ asset('template/images/profile/male/image_5.png') }}" alt="Profile Image" data-toggle="tooltip" title="Edward Wilson">
-                          <img class="img-sm" src="{{ asset('template/images/profile/female/image_6.png') }}" alt="Profile Image" data-toggle="tooltip" title="Billy Williams">
-                          <img class="img-sm" src="{{ asset('template/images/profile/male/image_6.png') }}" alt="Profile Image" data-toggle="tooltip" title="Lelia Hampton">
-                          <span class="plus-text img-sm">+3</span>
-                        </div>
+                      <div class="log-details">Report has been updated 
+                            <div class="grouped-images mt-2">
+                                <img class="img-sm" src="{{ asset('template/images/profile/male/image_4.png') }}" alt="Profile Image" data-toggle="tooltip" title="Gerald Pierce">
+                                <img class="img-sm" src="{{ asset('template/images/profile/male/image_5.png') }}" alt="Profile Image" data-toggle="tooltip" title="Edward Wilson">
+                                <img class="img-sm" src="{{ asset('template/images/profile/female/image_6.png') }}" alt="Profile Image" data-toggle="tooltip" title="Billy Williams">
+                                <img class="img-sm" src="{{ asset('template/images/profile/male/image_6.png') }}" alt="Profile Image" data-toggle="tooltip" title="Lelia Hampton">
+                                <span class="plus-text img-sm">+3</span>
+                            </div>
                       </div>
                       <small class="log-time">3 Hours Ago</small>
                     </div>
@@ -320,4 +267,8 @@
       </div>
     </div>
   </div>
+@endsection
+@section('script')
+    @parent
+    <script src="{{ asset('js/dashboard.js') }}"></script>
 @endsection

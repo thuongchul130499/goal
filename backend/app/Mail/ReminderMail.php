@@ -29,12 +29,15 @@ class ReminderMail extends Mailable
      */
     public function build()
     {
-        return $this->from('mail@example.com', 'Mailtrap')
-            ->subject('Mailtrap Confirmation')
+        return $this->from(env('MAIL_USERNAME'))
             ->markdown('mails.reminder')
-            ->with([
-                'name' => 'New Mailtrap User',
-                'link' => 'https://mailtrap.io/inboxes'
-            ]);
+            ->text('mails.reminder_text')
+            ->with(
+                [
+                    'user' => $this->user,
+                    'testVarOne' => '1',
+                    'testVarTwo' => '2',
+                ]);
+
     }
 }

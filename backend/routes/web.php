@@ -21,6 +21,7 @@ Route::get('setlocale/{locale}', function ($locale) {
     if (in_array($locale, \Config::get('app.locales'))) {
       session(['locale' => $locale]);
     }
+    
     return redirect()->back();
 })->name('change-lang');
 
@@ -36,4 +37,6 @@ Route::group(['middleware' => 'auth'],function(){
     Route::resource('goals', 'GoalController');
     Route::resource('tasks', 'TaskController');
     Route::post('/markAsRead', 'UserController@markAsRead');
+    Route::post('/users/follow', 'UserController@follow')->name('follow');
+    Route::post('/users', 'HomeController@index')->name('users');
 });

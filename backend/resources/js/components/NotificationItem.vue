@@ -5,7 +5,7 @@
                 <i class="mdi" :class="`mdi-${noti.image}`"></i>
             </div>
             <div class="content-wrapper">
-                <small class="name">{{ noti.title }}</small>
+                <small class="name" v-html="noti.title"></small>
                 <small class="content-text">{{ noti.content }}</small>
                 <small class="name float-right"><b>{{ noti.time }}</b></small>
             </div>

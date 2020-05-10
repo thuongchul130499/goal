@@ -2,9 +2,13 @@
 
 namespace App\Repositories\Eloquents;
 
+use App\FollowUser;
+use App\Notifications\UserNotification;
 use App\Repositories\Contracts\UserRepository;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserEloquentRepository extends AbstractEloquentRepository implements UserRepository
 {
@@ -15,7 +19,11 @@ class UserEloquentRepository extends AbstractEloquentRepository implements UserR
 
     public function getData($with = [], $data = [], $dataSelect = ['*'])
     {
-        # code...
+        return $this->model()
+            // ->where('id', '!=', Auth::id())
+            ->select($dataSelect)
+            ->with($with)
+            ->paginate(5);
     }
 
     public function show($uid)
@@ -30,47 +38,69 @@ class UserEloquentRepository extends AbstractEloquentRepository implements UserR
         $notis = [];
 
         foreach ($notifications as $key => $notification) {
-            switch ($notification->data['status'])
-            {
+            switch ($notification->data['status']) {
                 case 'logined':
-                    $notis[] = [
-                        'id' => $notification->id,
-                        'slug' => $notification->data['slug'],
-                        'type' => $notification->data['status'],
-                        'image' => 'security',
-                        'title' => 'Cảnh báo đăng nhập',
-                        'content' => 'Tài khoản của bạn được đăng nhập tại một máy tính khác, có phải là bạn ?',
-                        'time' => Carbon::createFromTimeStamp(strtotime($notification->created_at))->diffForHumans(),
-                        'read' => empty($notification->read_at) ? false : true
-                    ];
+                    $type = $notification->data['status'];
+                    $image = 'security';
+                    $title = 'Cảnh báo đăng nhập';
+                    $content = 'Tài khoản của bạn được đăng nhập tại một máy tính khác, có phải là bạn ?';
                     break;
                 case 'new-goal':
-                    $notis[] = [
-                        'id' => $notification->id,
-                        'slug' => $notification->data['slug'],
-                        'type' => $notification->data['content'],
-                        'image' => 'adjust',
-                        'title' => $notification->data['title'],
-                        'content' => $notification->data['content'],
-                        'time' => Carbon::createFromTimeStamp(strtotime($notification->created_at))->diffForHumans(),
-                        'read' => empty($notification->read_at) ? false : true
-                    ];
+                    $type = $notification->data['content'];
+                    $image = 'adjust';
+                    $title = $notification->data['title'];
+                    $content = $notification->data['content'];
                     break;
                 case 'change-progress':
-                    $notis[] = [
-                        'id' => $notification->id,
-                        'slug' => $notification->data['slug'],
-                        'type' => $notification->data['content'],
-                        'image' => 'checkbox-multiple-marked-circle-outline',
-                        'title' => $notification->data['title'],
-                        'content' => $notification->data['content'],
-                        'time' => Carbon::createFromTimeStamp(strtotime($notification->created_at))->diffForHumans(),
-                        'read' => empty($notification->read_at) ? false : true
-                    ];
+                    $type = $notification->data['content'];
+                    $image = 'checkbox-multiple-marked-circle-outline';
+                    $title = $notification->data['title'];
+                    $content = $notification->data['content'];
+                    break;
+                case 'follow':
+                    $type = $notification->data['content'];
+                    $image = 'account-plus';
+                    $title = $notification->data['title'];
+                    $content = $notification->data['content'];
                     break;
             }
+            $notis[] = [
+                'id' => $notification->id,
+                'slug' => $notification->data['slug'],
+                'type' => $type,
+                'image' => $image,
+                'title' => $title,
+                'content' => $content,
+                'time' => Carbon::createFromTimeStamp(strtotime($notification->created_at))->diffForHumans(),
+                'read' => empty($notification->read_at) ? false : true
+            ];
         }
 
         return $notis;
+    }
+
+    public function handleFollow(Request $request)
+    {
+        $query = Auth::user()->followings();
+        $userFollowed = $this->show($request->user_id);
+        if ($request->input('type') === 'follow') {
+            if ($this->checkExist($query, 'following_id', $request->user_id)) goto end;
+            $query->attach($request->user_id);
+            $userFollowed->notify(new UserNotification(Auth::user()));
+        } else {
+            if ($this->checkExist($query, 'follower_id', $request->user_id)) goto end;
+            $userFollowed->notifications()->whereJsonContains(
+                'data->sender',
+                Auth::user()->fullname
+            )->delete();
+            $query->detach($request->user_id);
+        }
+
+        end: return $userFollowed;
+    }
+
+    private function checkExist($query, $column, $user_id)
+    {
+        return $query->where($column, $user_id)->count() > 0;
     }
 }

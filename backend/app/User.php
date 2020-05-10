@@ -17,14 +17,14 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'email',
-        'password', 
-        'first_name', 
-        'last_name', 
-        'avatar', 
-        'ip_address', 
-        'notification_preference', 
-        'bio', 
-        'phone', 
+        'password',
+        'first_name',
+        'last_name',
+        'avatar',
+        'ip_address',
+        'notification_preference',
+        'bio',
+        'phone',
         'gender',
     ];
 
@@ -46,6 +46,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function goals(){
+        return $this->hasMany(Goal::class);
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follow_users', 'following_id', 'follower_id')
+            ->wherePivot('deleted_at', null);
+    }
+
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'follow_users', 'follower_id', 'following_id')
+            ->wherePivot('deleted_at', null);
+    }
+
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
@@ -58,9 +74,5 @@ class User extends Authenticatable
         }
 
         return \Storage::url($this->avatar);
-    }
-
-    public function goals(){
-        return $this->hasMany(Goal::class);
     }
 }

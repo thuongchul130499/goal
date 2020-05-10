@@ -140,6 +140,18 @@ $(document).ready(function(){
             }
         })
     });
+
+    $('body').on('click', 'a.page-link', function(e) {
+        let href = $(this).attr('href');
+        const ele = getEleToAppend(href);
+        $('.loader.user-table').removeClass('hide');
+        $.post(href).then( async res => {
+            $('div#user-pagination').html(res.links);
+            $('tbody#user-table').html(res.view);
+            $('.loader.user-table').addClass('hide');
+        });
+        e.preventDefault();
+    });
 });
 
 function updateMain(data) {
@@ -148,4 +160,10 @@ function updateMain(data) {
     $('.total-main').html(`${data.goal.progress} %`);
     $('#input-main').val(data.goal.progress);
     $('#mainStatus').replaceWith(data.statusMain);
+}
+
+function getEleToAppend (string) {
+    let str = (string || document.location.search).replace(/(^\?)/,'').split("&").map(function(n){return n = n.split("="),this[n[0]] = n[1],this}.bind({}))[0];
+    
+    return str[Object.keys(str)[0]];
 }

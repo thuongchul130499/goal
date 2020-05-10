@@ -45444,9 +45444,10 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { staticClass: "content-wrapper" }, [
-            _c("small", { staticClass: "name" }, [
-              _vm._v(_vm._s(_vm.noti.title))
-            ]),
+            _c("small", {
+              staticClass: "name",
+              domProps: { innerHTML: _vm._s(_vm.noti.title) }
+            }),
             _vm._v(" "),
             _c("small", { staticClass: "content-text" }, [
               _vm._v(_vm._s(_vm.noti.content))

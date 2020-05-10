@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileRequest;
+use App\Repositories\Contracts\UserRepository;
 use App\User;
 use Illuminate\Http\Request;
 use Auth;
@@ -11,6 +12,11 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
+    public function __construct(UserRepository $user)
+    {
+        $this->user = $user;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -136,6 +142,24 @@ class UserController extends Controller
             return $this->jsonSuccess([
                 'msg' => 'success',
             ]); 
+        } catch (\Exception $e) {
+            return $this->jsonError(500, $e->getMessage());
+        }
+    }
+
+    public function follow(Request $request)
+    {
+        $request->validate([
+            'type' => 'required',
+            'user_id' => 'required|numeric'
+        ]);
+
+        try {
+            $user = $this->user->handleFollow($request);
+            $following_ids = Auth::user()->followings()->pluck('following_id')->toArray();
+            $followers_ids = Auth::user()->followers()->pluck('follower_id')->toArray();
+
+            return view('user._user_single', compact(['user', 'following_ids', 'followers_ids']));
         } catch (\Exception $e) {
             return $this->jsonError(500, $e->getMessage());
         }
