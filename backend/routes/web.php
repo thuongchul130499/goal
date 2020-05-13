@@ -28,7 +28,7 @@ Route::get('setlocale/{locale}', function ($locale) {
 
 Route::group(['middleware' => 'auth'],function(){
     Route::get('/', 'HomeController@index')->name('home');
-    Route::post('/upload-avatar', 'UserController@upload');
+    Route::post('/upload-image', 'UserController@upload');
     Route::get('/notification/{slug}', 'NotificationController@show');
     Route::get('/notifications', 'NotificationController@index')->name('notifications');
     Route::get('/profile', 'UserController@profile')->name('profile');
@@ -39,4 +39,6 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/markAsRead', 'UserController@markAsRead');
     Route::post('/users/follow', 'UserController@follow')->name('follow');
     Route::post('/users', 'HomeController@index')->name('users');
+    Route::get('users/{id}', 'UserController@show')->name('show-user');
+    Route::resource('users', 'UserController')->only(['show', 'update']);
 });

@@ -14,7 +14,7 @@
 <body class="header-fixed">
     <div id="app">
         @include('layouts.header')
-        <div class="page-body">
+        <div class="@if(\Route::current()->getName() != 'show-user') page-body @endif">
             @include('layouts.sidebar')
             <div class="page-content-wrapper">
                 @yield('content')
@@ -24,7 +24,7 @@
     </div>
     <script>
         function btnLoad(){
-            return `<button class="btn btn-outline-primary btn-xs" type="button" disabled="">
+            return `<button class="btn btn-outline-primary btn-xs" id="load" type="button" disabled="">
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         <span class="sr-only">Loading...</span>
                     </button>`;

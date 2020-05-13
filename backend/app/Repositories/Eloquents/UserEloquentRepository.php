@@ -4,6 +4,7 @@ namespace App\Repositories\Eloquents;
 
 use App\FollowUser;
 use App\Notifications\UserNotification;
+use App\Profile;
 use App\Repositories\Contracts\UserRepository;
 use App\User;
 use Carbon\Carbon;
@@ -26,9 +27,22 @@ class UserEloquentRepository extends AbstractEloquentRepository implements UserR
             ->paginate(5);
     }
 
-    public function show($uid)
+    public function update($id, $request, $with = [])
     {
-        return $this->model()->findOrFail($uid);
+        try {
+            $user = $this->model()->with($with)->findOrFail($id);
+            $user->update(['bio' => $request->get('bio')]);
+            $user->profile()->updateOrCreate(['user_id' => $user->id], $request->get('profile'))->save();
+
+            return $user->refresh();
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+    }
+
+    public function show($uid, $with = [])
+    {
+        return $this->model()->with($with)->findOrFail($uid);
     }
 
     public function getNotifications($uid, $page = 1)

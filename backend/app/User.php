@@ -26,7 +26,12 @@ class User extends Authenticatable
         'bio',
         'phone',
         'gender',
+        'background',
     ];
+
+    // protected $with = ['profile'];
+
+    protected $appends = ['fullname', 'ava', 'bg'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -62,6 +67,11 @@ class User extends Authenticatable
             ->wherePivot('deleted_at', null);
     }
 
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
@@ -69,10 +79,19 @@ class User extends Authenticatable
 
     public function getAvaAttribute()
     {
-        if ($this->avatar_original) {
+        if ($this->avatar_original && !$this->image_origin) {
             return $this->avatar_original;
         }
 
         return \Storage::url($this->avatar);
+    }
+
+    public function getBgAttribute()
+    {
+        if (!empty($this->background)) {
+            return \Storage::url($this->background);
+        }
+
+        return 'https://bootdey.com/img/Content/bg1.jpg';
     }
 }

@@ -99,6 +99,7 @@ $(document).ready(function (e) {
 
     var user_id = $(this).data('user-id');
     var type = $(this).data('type');
+    var vue = $(this).data('req');
     $.ajax({
       url: '/users/follow',
       beforeSend: function beforeSend() {
@@ -110,7 +111,22 @@ $(document).ready(function (e) {
       },
       method: 'post',
       success: function success(res) {
-        $('#item-user-' + user_id).replaceWith(res);
+        if (!vue) {
+          $('#item-user-' + user_id).replaceWith(res);
+          return;
+        }
+
+        ;
+
+        if (type === 'follow') {
+          btn = "\n                        <button data-user-id=\"".concat(user_id, "\" data-req=\"", true, "\" data-type=\"unfollow\" class=\"btn btn-outline-danger has-icon btn-sm follow\">\n                            B\u1ECF theo d\xF5i\n                        </button>\n                    ");
+          $('.count-follower').html(parseInt($('.count-follower').html()) + 1);
+        } else {
+          btn = "\n                        <button data-user-id=\"".concat(user_id, "\" data-req=\"", true, "\" data-type=\"follow\" class=\"btn btn-success has-icon btn-sm follow\">\n                            <i class=\"mdi mdi-account-plus-outline\"></i>Theo d\xF5i\n                        </button>\n                    ");
+          $('.count-follower').html(parseInt($('.count-follower').html()) - 1);
+        }
+
+        $('.btn.btn-outline-primary.btn-xs#load').replaceWith(btn);
       }
     });
   });

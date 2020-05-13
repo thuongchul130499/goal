@@ -1,4 +1,4 @@
-@if(Auth::check())
+@if(Auth::check() && \Route::current()->getName() != 'show-user')
     <div class="sidebar">
         <div class="user-profile">
             <div class="display-avatar animated-avatar">

@@ -1,6 +1,6 @@
 <tr id="item-user-{{ $user->id }}">
     <td class="pr-0 pl-4">
-        <img class="profile-img img-sm" src="{{ asset('template/images/profile/male/image_4.png') }}" alt="profile image">
+        <a href="{{ route('show-user', $user->id) }}"><img class="profile-img img-sm" src="{{ $user->ava }}" alt="profile image"></a>
     </td>
     <td class="pl-md-0">
         <small class="text-black font-weight-medium d-block">{{ $user->fullname }}</small>

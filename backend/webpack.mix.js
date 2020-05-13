@@ -23,4 +23,5 @@ mix.scripts([
     .js('resources/js/dashboard.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .copyDirectory('resources/images', 'public/images')
+    .copyDirectory('resources/css', 'public/css')
     .copyDirectory('resources/template', 'public/template');

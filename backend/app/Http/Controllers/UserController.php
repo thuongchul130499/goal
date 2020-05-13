@@ -7,14 +7,26 @@ use App\Repositories\Contracts\UserRepository;
 use App\User;
 use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
+use Validator;
 
 class UserController extends Controller
 {
+    static public $defaultWith = [
+        'followers',
+        'followings',
+        'goals',
+        'profile',
+    ];
 
     public function __construct(UserRepository $user)
     {
+        header("Cache-Control: no-cache, no-store, must-revalidate");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+        header('Access-Control-Allow-Origin: *');  
         $this->user = $user;
     }
     /**
@@ -56,7 +68,19 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = $this->user->show($id, self::$defaultWith);
+        $followers_ids = Auth::user()->followings()->pluck('following_id')->toArray();
+        $followers_ids[] = Auth::id();
+        $usersRand = User::whereNotIn('id', $followers_ids)->inRandomOrder()->limit(5)->get();
+        $data = [
+            'user' => $user,
+            'users' => $usersRand,
+            'isFollow' => in_array($user->id, $followers_ids)
+        ];
+    
+        if (request()->ajax()) return $this->jsonSuccess($data);
+
+        return view('user.profile');
     }
 
     /**
@@ -79,7 +103,31 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        if ($request->ajax()) {
+            $validator = Validator::make($data, [
+                'bio' => 'max:500',
+                'address' => 'max:200',
+            ]);
+
+            if ($validator->fails()) {
+                $message = implode(',', $validator->errors()->all());
+
+                return $this->jsonError(422, $message);
+            }
+            $user = $this->user->update($id, $request, self::$defaultWith);
+            try {
+                DB::beginTransaction();
+                
+                return $this->jsonSuccess([
+                    'user' => $user
+                ]);
+                DB::commit();
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return $this->jsonError(500, $e->getMessage());
+            }
+        }
     }
 
     /**
@@ -96,7 +144,7 @@ class UserController extends Controller
     public function profile()
     {
         $user = Auth::user();
-        return view('user.profile', compact('user'));
+        return view('user.edit', compact('user'));
     }
 
     public function updateProfile(ProfileRequest $request)
@@ -105,31 +153,44 @@ class UserController extends Controller
         $data['notification_preference'] = implode(',', $data['notification_preference']);
         $data['password'] = Hash::make($data['password']);
         if (Auth::user()->update($data)) {
-            toastr()->success('Data has been saved successfully!');
             return redirect()->route('profile');
         };
-
     }
 
     public function upload(Request $req)
     {
-        $valid = $req->validate([
-            'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
+        if ($req->has('file')) {
+            $valid = $req->validate([
+                'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            ]);
+        }
+
+        if ($req->has('background')) {
+            $valid = $req->validate([
+                'background' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            ]);
+        } 
 
         try {
-            $path = $req->file('file')->store('public/avatars');
             $currentUser = User::find(Auth::id());
-            $currentImg = $currentUser->avatar;
-            Storage::delete($currentImg);
-            $currentUser->update(['avatar' => $path]);
+            if ($req->input('file')) {
+                $path = $req->file('file')->store('public/avatars');
+                $currentImg = $currentUser->avatar;
+                Storage::delete($currentImg);
+                $currentUser->update(['avatar' => $path]);
+            } else {
+                $path = $req->file('background')->store('public/avatars');
+                $currentImg = $currentUser->background;
+                Storage::delete($currentImg);
+                $currentUser->update(['background' => $path]);
+            }
 
             return $this->jsonSuccess([
                 'msg' => 'Cập nhật ảnh bìa thành công',
                 'path' => Storage::url($currentImg),
             ]);
-
         } catch (\Exception $e) {
+            DB::rollBack();
             return $this->jsonError(500, $e->getMessage());
         }
     }
@@ -141,7 +202,7 @@ class UserController extends Controller
 
             return $this->jsonSuccess([
                 'msg' => 'success',
-            ]); 
+            ]);
         } catch (\Exception $e) {
             return $this->jsonError(500, $e->getMessage());
         }

@@ -876,7 +876,7 @@ $(document).ready(function () {
     formData.append('file', $(this).prop('files')[0]);
     $.ajax({
       type: 'POST',
-      url: '/upload-avatar',
+      url: '/upload-image',
       data: formData,
       cache: false,
       contentType: false,

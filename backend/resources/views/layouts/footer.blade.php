@@ -1,4 +1,5 @@
-<footer class="footer">
+@if(\Route::current()->getName() != 'show-user')
+  <footer class="footer">
     <div class="row">
       <div class="col-sm-6 text-center text-sm-right order-sm-1">
         <ul class="text-gray">
@@ -12,3 +13,4 @@
       </div>
     </div>
   </footer>
+@endif
