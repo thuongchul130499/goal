@@ -1,7 +1,7 @@
 @if(Auth::check())
 <nav class="t-header">
   <div class="t-header-brand-wrapper">
-    <a href="index.html">
+    <a href="/">
       <img class="logo" src="{{ asset('template/images/logo.svg') }}" alt="">
       <img class="logo-mini" src="{{ asset('template/images/logo_mini.svg') }}" alt="">
     </a>

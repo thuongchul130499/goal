@@ -5,7 +5,7 @@
             <Header :user="user" :current="current"/>
             <div class="row profile-body">
                 <LeftWrapper :current="current"/>
-                <MiddleWrapper />
+                <MiddleWrapper :user="user" :current="current"/>
                 <RightWrapper :user="user" />
             </div>
         </div>

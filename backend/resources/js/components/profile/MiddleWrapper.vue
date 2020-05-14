@@ -1,90 +1,179 @@
 <template>
-    <div class="col-md-8 col-xl-6 middle-wrapper">
-        <div class="row">
-            <div class="col-md-12 grid-margin">
-                <div class="card rounded">
-                    <div class="card-header">
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="d-flex align-items-center">
-                                <img class="img-xs rounded-circle" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
-                                <div class="ml-2">
-                                    <p>Mike Popescu</p>
-                                    <p class="tx-11 text-muted">1 min ago</p>
-                                </div>
-                            </div>
-                            <div class="dropdown">
-                                <button class="btn p-0" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-horizontal icon-lg pb-3px">
-                                        <circle cx="12" cy="12" r="1"></circle>
-                                        <circle cx="19" cy="12" r="1"></circle>
-                                        <circle cx="5" cy="12" r="1"></circle>
-                                    </svg>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-meh icon-sm mr-2">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <line x1="8" y1="15" x2="16" y2="15"></line>
-                                            <line x1="9" y1="9" x2="9.01" y2="9"></line>
-                                            <line x1="15" y1="9" x2="15.01" y2="9"></line>
-                                        </svg> <span class="">Unfollow</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-corner-right-up icon-sm mr-2">
-                                            <polyline points="10 9 15 4 20 9"></polyline>
-                                            <path d="M4 20h7a4 4 0 0 0 4-4V4"></path>
-                                        </svg> <span class="">Go to post</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share-2 icon-sm mr-2">
-                                            <circle cx="18" cy="5" r="3"></circle>
-                                            <circle cx="6" cy="12" r="3"></circle>
-                                            <circle cx="18" cy="19" r="3"></circle>
-                                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                                        </svg> <span class="">Share</span></a>
-                                    <a class="dropdown-item d-flex align-items-center" href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-copy icon-sm mr-2">
-                                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-                                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-                                        </svg> <span class="">Copy link</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <p class="mb-3 tx-14">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus minima delectus nemo unde quae recusandae assumenda.</p>
-                        <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="">
-                    </div>
-                    <div class="card-footer">
-                        <div class="d-flex post-actions">
-                            <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart icon-md">
-                                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                                </svg>
-                                <p class="d-none d-md-block ml-2">Like</p>
-                            </a>
-                            <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square icon-md">
-                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                                </svg>
-                                <p class="d-none d-md-block ml-2">Comment</p>
-                            </a>
-                            <a href="javascript:;" class="d-flex align-items-center text-muted">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share icon-md">
-                                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-                                    <polyline points="16 6 12 2 8 6"></polyline>
-                                    <line x1="12" y1="2" x2="12" y2="15"></line>
-                                </svg>
-                                <p class="d-none d-md-block ml-2">Share</p>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+  <div class="col-md-8 col-xl-6 middle-wrapper">
+    <div class="row" v-if="current == user.id">
+      <div class="col-md-12 grid-margin">
+        <div class="card rounded mb-2">
+          <div class="card-header">
+            <textarea class="form-control" v-if="!posting" @click.prevent="posting = !posting">{{ "Ngày hôm nay của bạn thế nào?, " + user.fullname }}</textarea>
+            <div v-else>
+              <ckeditor tag-name="textarea" v-model="content" :config="editorConfig" autoforcus></ckeditor>
+              <div
+                id="my-strictly-unique-vue-upload-multiple-image"
+                style="display: flex; justify-content: center;"
+              >
+                <vue-upload-multiple-image
+                  @upload-success="uploadImageSuccess"
+                  @before-remove="beforeRemove"
+                  @edit-image="editImage"
+                  :data-images="images"
+                  idUpload="myIdUpload"
+                  editUpload="myIdEdit"
+                ></vue-upload-multiple-image>
+              </div>
+              <button
+                type="button"
+                class="btn btn-success btn-sm has-icon btn-block mt-0"
+                @click.prevent="post"
+              >
+                <i class="mdi mdi-comment-processing-outline"></i>Đăng
+              </button>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-md-12 grid-margin" v-if="getPosts.length > 0">
+        <Card v-for="(post, index) in getPosts" :key="index" :post="post" />
+      </div>
+      <div class="col-md-12 grid-margin" v-if="getPosts.length > 0 && !getLoading">
+        <div class="card rounded mb-2 p-2">
+          <center>
+            <p>Không có gì</p>
+          </center>
+        </div>
+      </div>
+      <Loader v-if="getLoading" />
+    </div>
+  </div>
 </template>
 <script>
+import CKEditor from "ckeditor4-vue";
+import Card from "./../post/Card";
+import VueUploadMultipleImage from "vue-upload-multiple-image";
+import { mapActions, mapGetters } from "vuex";
+import Loader from "./../Loader";
+
 export default {
-    
-}
+  props: ["user", "current"],
+  components: { Card, VueUploadMultipleImage, Loader },
+  data() {
+    return {
+      posting: false,
+      content: "",
+      editorConfig: {
+        startupFocus: true,
+        toolbar: [
+          ["Styles", "Format", "Font", "FontSize"],
+          ["Bold", "Italic"],
+          ["Undo", "Redo"]
+        ]
+      },
+      images: [],
+      fd: [],
+      request: {
+        user_id: this.user.id,
+        page: 1
+      },
+      busy: false
+    };
+  },
+  watch: {
+    busy(busy) {
+      if (busy) {
+        this.fetchPost(this.request);
+      }
+    }
+  },
+  mounted() {
+    window.addEventListener("scroll", () => {
+      this.busy = this.bottomVisible();
+    });
+    this.fetchPost(this.request).then ( e => this.request.page ++);
+  },
+  methods: {
+    post() {
+      let fd = new FormData();
+      this.fd.forEach(element => {
+        fd.append("images[]", this.dataURLtoFile(element.path, element.name));
+      });
+      fd.append("content", this.content);
+      window.axios
+        .post("/posts", fd, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then(response => {
+          this.$store.commit('addPost', response.data);
+          swal({
+            icon: "success",
+            text: "success"
+          });
+        });
+    },
+    uploadImageSuccess(formData, index, fileList) {
+      this.fd = fileList;
+    },
+    beforeRemove(index, done, fileList) {
+      console.log("index", index, fileList);
+      done();
+    },
+    editImage(formData, index, fileLisimagest) {
+      console.log("edit data", formData, index, fileList);
+    },
+    dataURLtoFile(dataurl, filename) {
+      var arr = dataurl.split(","),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+
+      return new File([u8arr], filename, { type: mime });
+    },
+    bottomVisible() {
+      const scrollY = window.scrollY;
+      const visible = document.documentElement.clientHeight;
+      const pageHeight = document.documentElement.scrollHeight;
+      const bottomOfPage = visible + scrollY >= pageHeight;
+      return bottomOfPage || pageHeight < visible;
+    },
+    ...mapActions(["fetchPost"])
+  },
+  computed: {
+    ...mapGetters(["getPosts", "getLoading"])
+  }
+};
 </script>
+<style scoped>
+#my-strictly-unique-vue-upload-multiple-image {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+h1,
+h2 {
+  font-weight: normal;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+a {
+  color: #42b983;
+}
+</style>

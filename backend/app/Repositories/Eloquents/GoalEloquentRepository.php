@@ -33,7 +33,8 @@ class GoalEloquentRepository extends AbstractEloquentRepository implements GoalR
         try{
             $goal = $this->show($id, ['tasks']);
             $total = $goal->tasks->sum('progress');
-            $goal->update(['progress' => $total / $goal->tasks->count()]);
+            $progress = $goal->tasks->count() > 0 ? $total / $goal->tasks->count() : 0;
+            $goal->update(['progress' => $progress]);
             return $goal->refresh();
         } catch (\Exception $e) {
             throw new Exception($e->getMessage());

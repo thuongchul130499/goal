@@ -24,11 +24,13 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "ckeditor4-vue": "^0.2.0",
         "laravel-echo": "^1.7.0",
         "nouislider": "^14.3.0",
         "pusher-js": "^6.0.2",
         "socket.io-client": "^2.3.0",
         "sweetalert": "^2.1.2",
+        "vue-upload-multiple-image": "^1.1.4",
         "vuelidate": "^0.7.5",
         "vuex": "^3.3.0"
     }

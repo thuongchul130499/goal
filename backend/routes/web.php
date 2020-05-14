@@ -41,4 +41,5 @@ Route::group(['middleware' => 'auth'],function(){
     Route::post('/users', 'HomeController@index')->name('users');
     Route::get('users/{id}', 'UserController@show')->name('show-user');
     Route::resource('users', 'UserController')->only(['show', 'update']);
+    Route::resource('posts', 'PostController');
 });

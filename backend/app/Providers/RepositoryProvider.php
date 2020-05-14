@@ -13,9 +13,13 @@ class RepositoryProvider extends ServiceProvider
             'App\Repositories\Eloquents\UserEloquentRepository',
         ],
         [
-        'App\Repositories\Contracts\GoalRepository',
-        'App\Repositories\Eloquents\GoalEloquentRepository',
-    ],
+            'App\Repositories\Contracts\GoalRepository',
+            'App\Repositories\Eloquents\GoalEloquentRepository',
+        ],
+        [
+            'App\Repositories\Contracts\PostRepository',
+            'App\Repositories\Eloquents\PostEloquentRepository',
+        ],
     ];
     /**
      * Register services.
