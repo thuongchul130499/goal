@@ -20,6 +20,10 @@ class RepositoryProvider extends ServiceProvider
             'App\Repositories\Contracts\PostRepository',
             'App\Repositories\Eloquents\PostEloquentRepository',
         ],
+        [
+            'App\Repositories\Contracts\NoteRepository',
+            'App\Repositories\Eloquents\NoteEloquentRepository',
+        ],
     ];
     /**
      * Register services.

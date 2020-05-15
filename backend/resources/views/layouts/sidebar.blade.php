@@ -35,21 +35,10 @@
                 </ul>
             </li>
             <li>
-                <a href="#ui-elements" data-toggle="collapse" aria-expanded="false">
-                    <span class="link-title">UI Elements</span>
-                    <i class="mdi mdi-bullseye link-icon"></i>
+                <a href="{{ route('notes.index') }}">
+                    <span class="link-title">Ghi chú</span>
+                    <i class="mdi mdi-note link-icon"></i>
                 </a>
-                <ul class="collapse navigation-submenu" id="ui-elements">
-                    <li>
-                        <a href="pages/ui-components/buttons.html">Buttons</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui-components/tables.html">Tables</a>
-                    </li>
-                    <li>
-                        <a href="pages/ui-components/typography.html">Typography</a>
-                    </li>
-                </ul>
             </li>
             <li>
                 <a href="pages/forms/form-elements.html">

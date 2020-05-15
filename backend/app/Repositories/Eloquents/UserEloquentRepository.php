@@ -10,6 +10,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserEloquentRepository extends AbstractEloquentRepository implements UserRepository
 {
@@ -25,6 +26,20 @@ class UserEloquentRepository extends AbstractEloquentRepository implements UserR
             ->select($dataSelect)
             ->with($with)
             ->paginate(5);
+    }
+
+    public function getStatistical()
+    {
+        $from = Carbon::today()->subDays(6)->toDateString();
+        $to = Carbon::today()->toDateString();
+        $range = [$from, $to];
+
+        $data = [
+            'follower' => $this->getStatisticalFollow($range),
+            'user' => $this->getStatisticalUser($range)
+        ];
+
+        return $data;
     }
 
     public function update($id, $request, $with = [])
@@ -116,5 +131,46 @@ class UserEloquentRepository extends AbstractEloquentRepository implements UserR
     private function checkExist($query, $column, $user_id)
     {
         return $query->where($column, $user_id)->count() > 0;
+    }
+
+     private function generateInitDataDay()
+    {
+        for ($i = 7; $i >= 0; $i--) {
+            $initData[] = [
+                'date' => Carbon::today()->subDays($i)->format('Y-m-d'),
+                'followers' => 0
+            ];
+        }
+
+        return $initData;
+    }
+
+    private function getStatisticalFollow(array $rangeDate) :array
+    {
+        $followerCount = FollowUser::where('following_id', Auth::id())
+            ->whereBetween(DB::raw('DATE(created_at)'), $rangeDate)
+            ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as followers'))
+            ->groupBy('date')
+            ->get();
+        $follower = $this->generateInitDataDay();
+
+        foreach ($followerCount as $item) {
+            foreach ($this->generateInitDataDay() as $key => $val) {
+                if ($item->date === $val['date']) {
+                    $follower[$key]['followers'] += $item->followers;
+                }
+            }
+        }
+
+        return $follower;
+    }
+
+    private function getStatisticalUser($range)
+    {
+        return $user = $this->model()
+            ->whereBetween(DB::raw('DATE(created_at)'), $range)
+            ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as user'))
+            ->groupBy('date')
+            ->get();
     }
 }

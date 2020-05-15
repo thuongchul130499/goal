@@ -48,4 +48,9 @@ class HomeController extends Controller
 
         return view('home', compact('ratesGold', 'users', 'following_ids'));
     }
+
+    public function getStatistical()
+    {
+        return $this->user->getStatistical();
+    }
 }

@@ -10,7 +10,7 @@ RUN chown -R www-data:www-data /var/www/html \
 RUN apt-get update \
   && apt-get install -y zlib1g-dev libzip-dev libicu-dev wget gnupg g++ git openssh-client libpng-dev iproute2 \
   && docker-php-ext-configure intl \
-  && docker-php-ext-install intl pdo_mysql zip gd pcntl ext-pcntl
+  && docker-php-ext-install intl pdo_mysql zip gd pcntl
 
 RUN pecl install -f xdebug && docker-php-ext-enable xdebug;
 

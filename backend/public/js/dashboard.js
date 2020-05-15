@@ -141,7 +141,7 @@ $(document).ready(function (e) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/thuongnguyen/Desktop/goal1/backend/resources/js/dashboard.js */"./resources/js/dashboard.js");
+module.exports = __webpack_require__(/*! /home/nguyen.ngoc.thuong/Desktop/goal/backend/resources/js/dashboard.js */"./resources/js/dashboard.js");
 
 
 /***/ })

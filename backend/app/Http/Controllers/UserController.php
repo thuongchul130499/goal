@@ -26,7 +26,7 @@ class UserController extends Controller
         header("Cache-Control: no-cache, no-store, must-revalidate");
         header("Pragma: no-cache");
         header("Expires: 0");
-        header('Access-Control-Allow-Origin: *');  
+        header('Access-Control-Allow-Origin: *');
         $this->user = $user;
     }
     /**
@@ -77,7 +77,7 @@ class UserController extends Controller
             'users' => $usersRand,
             'isFollow' => in_array($user->id, $followers_ids)
         ];
-    
+
         if (request()->ajax()) return $this->jsonSuccess($data);
 
         return view('user.profile');
@@ -118,7 +118,7 @@ class UserController extends Controller
             $user = $this->user->update($id, $request, self::$defaultWith);
             try {
                 DB::beginTransaction();
-                
+
                 return $this->jsonSuccess([
                     'user' => $user
                 ]);
@@ -169,12 +169,11 @@ class UserController extends Controller
             $valid = $req->validate([
                 'background' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
             ]);
-        } 
-
+        }
         try {
             $currentUser = User::find(Auth::id());
-            if ($req->input('file')) {
-                $path = $req->file('file')->store('public/avatars');
+            if ($req->all()['file']) {
+                $path = $req->all()['file']->store('public/avatars');
                 $currentImg = $currentUser->avatar;
                 Storage::delete($currentImg);
                 $currentUser->update(['avatar' => $path]);

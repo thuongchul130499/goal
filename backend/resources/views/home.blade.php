@@ -4,20 +4,7 @@
     <div class="page-content-wrapper-inner">
       <div class="content-viewport">
         <div class="row">
-          {{-- <div class="col-md-3 col-sm-6 col-6 equel-grid">
-            <div class="grid">
-              <div class="grid-body text-gray">
-                <div class="d-flex justify-content-between">
-                  <p>30%</p>
-                  <p>+06.2%</p>
-                </div>
-                <p class="text-black">Traffic</p>
-                <div class="wrapper w-50 mt-4">
-                  <canvas height="45" id="stat-line_1"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Statline></Statline>
           <div class="col-md-3 col-sm-6 col-6 equel-grid">
             <div class="grid">
               <div class="grid-body text-gray">
@@ -59,44 +46,8 @@
                 </div>
               </div>
             </div>
-          </div> --}}
-          <div class="col-lg-4 col-md-6 equel-grid">
-            <div class="grid">
-              <div class="grid-body d-flex flex-column h-100">
-                <div class="wrapper">
-                  <div class="d-flex justify-content-between">
-                    <div class="split-header">
-                        <img class="img-ss mt-1 mb-1 mr-2" src="{{ asset('template/images/social-icons/instagram.svg') }}" alt="instagram">
-                      <p class="card-title">Followers Growth</p>
-                    </div>
-                    <div class="wrapper">
-                      <button class="btn action-btn btn-xs component-flat pr-0" type="button">
-                          <i class="mdi mdi-access-point text-muted mdi-2x"></i></button>
-                      <button class="btn action-btn btn-xs component-flat pr-0" type="button">
-                          <i class="mdi mdi-cloud-download-outline text-muted mdi-2x"></i></button>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-end pt-2 mb-4">
-                    <h4>16.2K</h4>
-                    <p class="ml-2 text-muted">New Followers</p>
-                  </div>
-                </div>
-                <div class="mt-auto">
-                  <canvas class="curved-mode" id="followers-bar-chart" height="220"></canvas>
-                </div>
-              </div>
-            </div>
           </div>
-          {{-- <div class="col-lg-4 col-md-6 equel-grid">
-            <div class="grid">
-              <div class="grid-body">
-                <p class="card-title">Campaign</p>
-                <div id="radial-chart"></div>
-                <h4 class="text-center">$23,350.00</h4>
-                <p class="text-center text-muted">Used balance this billing cycle</p>
-              </div>
-            </div>
-          </div> --}}
+          <Statistical></Statistical>
           <div class="col-lg-8 col-md-12 equel-grid" style="max-height: 400px">
             <div class="grid table-responsive">
                 @include('layouts.graph.rate_exchange')
@@ -205,7 +156,7 @@
             <div class="grid">
               <div class="grid-body">
                 <div class="split-header">
-                  <p class="card-title">Activity Log</p>
+                  <p class="card-title">Lịch sử</p>
                   <div class="btn-group">
                     <button type="button" class="btn btn-trasnparent action-btn btn-xs component-flat pr-0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="mdi mdi-dots-vertical"></i>
@@ -225,7 +176,7 @@
                     </div>
                     <div class="activity-log">
                       <p class="log-name">Ronald Edwards</p>
-                      <div class="log-details">Report has been updated 
+                      <div class="log-details">Report has been updated
                             <div class="grouped-images mt-2">
                                 <img class="img-sm" src="{{ asset('template/images/profile/male/image_4.png') }}" alt="Profile Image" data-toggle="tooltip" title="Gerald Pierce">
                                 <img class="img-sm" src="{{ asset('template/images/profile/male/image_5.png') }}" alt="Profile Image" data-toggle="tooltip" title="Edward Wilson">

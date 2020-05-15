@@ -21,7 +21,7 @@ Route::get('setlocale/{locale}', function ($locale) {
     if (in_array($locale, \Config::get('app.locales'))) {
       session(['locale' => $locale]);
     }
-    
+
     return redirect()->back();
 })->name('change-lang');
 
@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('/notifications', 'NotificationController@index')->name('notifications');
     Route::get('/profile', 'UserController@profile')->name('profile');
     Route::post('/profile', 'UserController@updateProfile')->name('update-profile');
-    Route::post('goal/{id}/task', 'GoalController@addTask');    
+    Route::post('goal/{id}/task', 'GoalController@addTask');
     Route::resource('goals', 'GoalController');
     Route::resource('tasks', 'TaskController');
     Route::post('/markAsRead', 'UserController@markAsRead');
@@ -42,4 +42,8 @@ Route::group(['middleware' => 'auth'],function(){
     Route::get('users/{id}', 'UserController@show')->name('show-user');
     Route::resource('users', 'UserController')->only(['show', 'update']);
     Route::resource('posts', 'PostController');
+
+    Route::get('/get-statistical', 'HomeController@getStatistical');
+
+    Route::resource('notes', 'NoteController');
 });
